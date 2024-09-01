@@ -43,11 +43,57 @@
   <!-- include the javascript statements from index.js -->
   <script src="script.js"></script>
 
+  <!-- Internal script for index.html -->
   <script>
 
-    // implement your statement(s) here
-    // e.g. statement 1
-    // e.g. statement 2
+  // retrieve the salutations and store it in a variable (arr)
+  const arr = ftnSalutation();
+
+  // instantiate the object for element inputSelect
+  const selectList = document.getElementById("inputSelect");
+
+  // populate the list now
+  selectList.options[0] = new Option("Please select", "");
+  selectList.options[0].selected = true;
+
+
+  // selectList.options[1] = new Option(arr[0]); //Mr.
+  // selectList.options[2] = new Option(arr[1]); //Mrs.
+  // selectList.options[3] = new Option(arr[2]); //Ms.
+  // selectList.options[4] = new Option(arr[3]); //Dr.
+
+  for (let index = 0; index < arr.length; index++) {
+    selectList.options[index + 1] = new Option(arr[index], arr[index]);
+  }
+
+  // 
+  // 
+  // 
+  // 
+  function ftnProcessName (){
+
+    // prevent the page refresh
+    event.preventDefault();
+
+    // 
+    const selectChoice = document.getElementById("inputSelect").value;
+    const uName = document.getElementById("inputName").value;
+
+    console.log(selectChoice);
+    console.log(uName);
+
+    const validated = validateInputs[selectedChoice, uName];
+
+    if(!validated){
+      return alert("Please fill in the inputs correctly");
+    }
+
+  // call ftnGreeting here
+  const result = ftnGreeting(selectChoice, uName);
+  return alert(result);
+
+  }
+
 
   </script>
   

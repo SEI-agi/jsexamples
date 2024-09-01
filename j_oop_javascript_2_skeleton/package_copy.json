@@ -1,0 +1,14 @@
+{
+    "name": "j_oop_javascript_2_skeleton",
+    "version": "1.0.0",
+    "main": "Car.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "type": "module",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": ""
+  }
+  

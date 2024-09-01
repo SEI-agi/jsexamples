@@ -55,3 +55,5 @@ const names = ["ali", "samson", "jenny"];       // we have an array of names
     console.log(capitalisedName);
 
 
+
+    
