@@ -5,6 +5,7 @@ const GRASS = "░";
 const HOLE = "O";
 const CARROT = "^";
 const PLAYER = "*";
+const OUTOFBOUND = undefined;
 
 // WIN / LOSE / OUT / QUIT messages constants
 const WIN = "";                                                                 // TODO: customise message when player wins
@@ -23,6 +24,8 @@ class Field{
     constructor(field = [[]]){
         this.field = field;                                                     // this.field is a property of the class Field 
         this.gamePlay = false;                                                  // when the game is instantiated, the gamePlay is false
+        this.x = 0;                                                             // !! tracks the x location of the plaer
+        this.y = 0;                                                             // !! tracks the y location of the player
     }
 
     static welcomeMsg(msg){                                                     // static Method to show game's welcome message
@@ -50,38 +53,48 @@ class Field{
 
     updateGame(input){                                                          // TODO: Refer to details in the method's codeblock
 
-      const userInput = String(input).toLowerCase();
-      
-      switch (this.field[this._y][this._x]) {
-        /*   
-        TODO: 1. if the user arrives at the carrot
-        end the game - set gamePlay = false;
-        inform the user that he WIN the game 
-        */
-        case hat:
+        const userInput = String(input).toLowerCase();
+        
+        switch (this.field[this.x][this.y]) {
+            /*   
+            TODO: 1. if the user arrives at the carrot
+            end the game - set gamePlay = false;
+            inform the user that he WIN the game 
+            */
+            case CARROT:
             console.log("You win - You found the hat!");
             this._isPlaying = false;
             break;
-        
-        /* 
-        TODO: 2. if the user arrives at the hole
-        end the game - set the gamePlay = false;
-        inform the user that he LOST the game
-        */
-        case hole:
-        console.log("You lose - You fell in a hole!");
-        this._isPlaying = false;
-        break;
+            
+            /* 
+            TODO: 2. if the user arrives at the hole
+            end the game - set the gamePlay = false;
+            inform the user that he LOST the game
+            */
+            case HOLE:
+            console.log("You lose - You fell in a hole!");
+            this._isPlaying = false;
+            break;
 
-        /*  
-        TODO: 3. if the user exits out of the field
-        end the game - set the gamePlay = false;
-        inform the user that he step OUT of the game
-        */
-        case undefined:
-        console.log("You lose - Out of boundary");
-        this._isPlaying = false;
-        break;
+            /*  
+            TODO: 3. if the user exits out of the field
+            end the game - set the gamePlay = false;
+            inform the user that he step OUT of the game
+            */
+            case OUTOFBOUND:
+            console.log("You lose - Out of boundary");
+            this._isPlaying = false;
+            break;
+
+            /* 
+            TODO: 5. otherwise, move player on the map: this.field[rowindex][colindex] = PLAYER;
+            update this.field to show the user had moved to the new area on map
+            */
+            case PLAYER:
+            console.log("Keep looking for the hat...");
+            this.field[this.y][this.x] = PLAYER;
+            break;
+        }
 
         /*  
         TODO: 4. if the user ends the game
@@ -91,20 +104,6 @@ class Field{
         if(userInput === "q"){
             this.quitGame();
         }
-
-        /* 
-        TODO: 5. otherwise, move player on the map: this.field[rowindex][colindex] = PLAYER;
-        update this.field to show the user had moved to the new area on map
-        */
-        case fieldCharacter:
-        console.log("Keep looking for the hat...");
-        this.field[this._y][this._x] = pathCharacter;
-        break;
-        case pathCharacter:
-            console.log("You are stepping on *");
-            break;
-        }
-      }
     }
 
     plantCarrot(){
@@ -112,7 +111,6 @@ class Field{
         const X = Math.floor(Math.random() * (ROWS - 1)) + 1;
         const Y = Math.floor(Math.random() * (COLS - 1)) + 1;   
         this.field[X][Y] = CARROT;
-        console.log(X, Y);
     }
 
 
